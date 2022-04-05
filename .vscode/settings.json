@@ -1,0 +1,4 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.maven.globalSettings": "C:/Program Files/apache-maven-3.8.3/conf/settings.xml"
+}
