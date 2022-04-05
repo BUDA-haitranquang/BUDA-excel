@@ -12,7 +12,7 @@ public class ExpenseReportService {
     public ExpenseReportService(ExpenseReportRepository expenseReportRepository) {
         this.expenseReportRepository = expenseReportRepository;
     }
-    public List<?> overallExpenseReport(Long userID){
-        return this.expenseReportRepository.overallExpenseReport(userID);
+    public List<ExpenseReportDTO> lastTwoMonthsReport(Long userID){
+        return this.expenseReportRepository.lastTwoMonthsReport(userID);
     }
 }

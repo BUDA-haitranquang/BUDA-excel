@@ -1,5 +1,9 @@
 package com.buda.excel.api.overall.expense;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +22,12 @@ public class ExpenseReportController {
         this.expenseReportService = expenseReportService;
     }
     @GetMapping("/{userID}")
-    public ResponseEntity<?> overallExpenseReport(@PathVariable Long userID) {
-        return ResponseEntity.ok().body(this.expenseReportService.overallExpenseReport(userID));
+    public void overallExpenseReport(@PathVariable Long userID, HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=excel.xlsx";
+        response.setHeader(headerKey, headerValue);
+        ExpenseReportExporter expenseReportExporter = new ExpenseReportExporter(expenseReportService.lastTwoMonthsReport(userID));
+        expenseReportExporter.export(response);
     }
 }
