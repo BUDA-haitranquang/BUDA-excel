@@ -1,4 +1,4 @@
-package com.buda.excel.api.overall.revenue;
+package com.buda.excel.api.business.overall.expense;
 
 import java.io.IOException;
 
@@ -11,28 +11,29 @@ import com.buda.excel.util.ExcelResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/overall/revenue")
+@RequestMapping("api/business/overall/expense")
 @CrossOrigin("*")
-public class RevenueReportController {
-    private final RevenueReportService revenueReportService;
+public class ExpenseReportController {
+    private final ExpenseReportService expenseReportService;
     private final ExcelResponseUtil excelResponseUtil;
     private final JwtTokenResolver jwtTokenResolver;
     @Autowired
-    public RevenueReportController(RevenueReportService revenueReportService, ExcelResponseUtil excelResponseUtil,
-    JwtTokenResolver jwtTokenResolver) {
+    public ExpenseReportController(ExpenseReportService expenseReportService, ExcelResponseUtil excelResponseUtil,
+    JwtTokenResolver jwtTokenResolver){
         this.jwtTokenResolver = jwtTokenResolver;
-        this.revenueReportService = revenueReportService;
+        this.expenseReportService = expenseReportService;
         this.excelResponseUtil = excelResponseUtil;
     }
     @GetMapping
-    public void getRevenueReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException{
-        this.excelResponseUtil.validateResponse(httpServletResponse, "revenue_report");
+    public void overallExpenseReport(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
         Long userID = this.jwtTokenResolver.getUserIDFromToken(httpServletRequest);
-        RevenueReportExporter revenueReportExporter = this.revenueReportService.getRevenueReport(userID);
-        revenueReportExporter.export(httpServletResponse);
+        this.excelResponseUtil.validateResponse(response, "expense_report");
+        ExpenseReportExporter expenseReportExporter = this.expenseReportService.getExpenseReport(userID);
+        expenseReportExporter.export(response);
     }
 }

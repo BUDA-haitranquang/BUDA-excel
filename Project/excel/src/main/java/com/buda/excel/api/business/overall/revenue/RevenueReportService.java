@@ -1,4 +1,4 @@
-package com.buda.excel.api.overall.revenue;
+package com.buda.excel.api.business.overall.revenue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
