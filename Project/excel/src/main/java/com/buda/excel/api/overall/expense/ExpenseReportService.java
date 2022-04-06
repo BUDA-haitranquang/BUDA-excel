@@ -8,11 +8,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExpenseReportService {
     private final ExpenseReportRepository expenseReportRepository;
+
     @Autowired
     public ExpenseReportService(ExpenseReportRepository expenseReportRepository) {
         this.expenseReportRepository = expenseReportRepository;
     }
-    public List<ExpenseReportDTO> lastTwoMonthsReport(Long userID){
-        return this.expenseReportRepository.lastTwoMonthsReport(userID);
+
+    public ExpenseReportExporter getExpenseReport(Long userID) {
+        ExpenseReportExporter expenseReportExporter = new ExpenseReportExporter(userID);
+        expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(0),
+                this.expenseReportRepository.lastTwoMonthsReport(userID));
+        expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(1), 
+                this.expenseReportRepository.recentMonthsReport(userID));
+        expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(2), 
+                this.expenseReportRepository.recentWeeksReport(userID));
+        return expenseReportExporter;
     }
 }
