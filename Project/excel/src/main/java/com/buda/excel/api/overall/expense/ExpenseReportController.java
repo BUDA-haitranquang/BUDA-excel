@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.buda.excel.util.ExcelResponseUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class ExpenseReportController {
     private final ExpenseReportService expenseReportService;
+    private final ExcelResponseUtil excelResponseUtil;
     @Autowired
-    public ExpenseReportController(ExpenseReportService expenseReportService){
+    public ExpenseReportController(ExpenseReportService expenseReportService, ExcelResponseUtil excelResponseUtil){
         this.expenseReportService = expenseReportService;
+        this.excelResponseUtil = excelResponseUtil;
     }
     @GetMapping("/userID/{userID}")
     public void overallExpenseReport(@PathVariable Long userID, HttpServletResponse response) throws IOException {
-        response.setContentType("application/octet-stream");
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=expense-report.xlsx";
-        response.setHeader(headerKey, headerValue);
+        this.excelResponseUtil.validateResponse(response, "expense_report");
         ExpenseReportExporter expenseReportExporter = this.expenseReportService.getExpenseReport(userID);
         expenseReportExporter.export(response);
     }
