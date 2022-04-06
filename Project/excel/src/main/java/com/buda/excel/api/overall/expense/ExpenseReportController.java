@@ -2,8 +2,10 @@ package com.buda.excel.api.overall.expense;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.buda.excel.security.JwtTokenResolver;
 import com.buda.excel.util.ExcelResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExpenseReportController {
     private final ExpenseReportService expenseReportService;
     private final ExcelResponseUtil excelResponseUtil;
+    private final JwtTokenResolver jwtTokenResolver;
     @Autowired
-    public ExpenseReportController(ExpenseReportService expenseReportService, ExcelResponseUtil excelResponseUtil){
+    public ExpenseReportController(ExpenseReportService expenseReportService, ExcelResponseUtil excelResponseUtil,
+    JwtTokenResolver jwtTokenResolver){
+        this.jwtTokenResolver = jwtTokenResolver;
         this.expenseReportService = expenseReportService;
         this.excelResponseUtil = excelResponseUtil;
     }
-    @GetMapping("/userID/{userID}")
-    public void overallExpenseReport(@PathVariable Long userID, HttpServletResponse response) throws IOException {
+    @GetMapping
+    public void overallExpenseReport(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+        Long userID = this.jwtTokenResolver.getUserIDFromToken(httpServletRequest);
         this.excelResponseUtil.validateResponse(response, "expense_report");
         ExpenseReportExporter expenseReportExporter = this.expenseReportService.getExpenseReport(userID);
         expenseReportExporter.export(response);
