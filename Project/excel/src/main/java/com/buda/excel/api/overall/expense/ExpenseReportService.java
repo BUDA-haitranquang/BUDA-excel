@@ -15,7 +15,7 @@ public class ExpenseReportService {
     }
 
     public ExpenseReportExporter getExpenseReport(Long userID) {
-        ExpenseReportExporter expenseReportExporter = new ExpenseReportExporter(userID);
+        ExpenseReportExporter expenseReportExporter = new ExpenseReportExporter();
         expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(0),
                 this.expenseReportRepository.lastTwoMonthsReport(userID));
         expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(1), 

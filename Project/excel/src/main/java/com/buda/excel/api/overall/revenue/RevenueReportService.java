@@ -11,7 +11,7 @@ public class RevenueReportService {
         this.revenueReportRepository = revenueReportRepository;
     }
     public RevenueReportExporter getRevenueReport(Long userID) {
-        RevenueReportExporter revenueReportExporter = new RevenueReportExporter(userID);
+        RevenueReportExporter revenueReportExporter = new RevenueReportExporter();
         revenueReportExporter.writeDataLines(revenueReportExporter.getSheets().get(0), this.revenueReportRepository.lastTwoMonthsReport(userID));
         revenueReportExporter.writeDataLines(revenueReportExporter.getSheets().get(1), this.revenueReportRepository.recentMonthsReport(userID));
         revenueReportExporter.writeDataLines(revenueReportExporter.getSheets().get(2), this.revenueReportRepository.recentWeeksReport(userID));

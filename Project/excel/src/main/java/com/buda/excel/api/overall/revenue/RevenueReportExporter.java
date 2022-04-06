@@ -16,9 +16,7 @@ import lombok.Getter;
 public class RevenueReportExporter extends GeneralExporter{
     
     public List<XSSFSheet> sheets;
-    public Long userID;
-    public RevenueReportExporter(Long userID) {
-        this.userID = userID;
+    public RevenueReportExporter() {
         workbook = new XSSFWorkbook();
         sheets = new ArrayList<XSSFSheet>();
         writeHeaderLine();
