@@ -30,7 +30,7 @@ public class ProductReportController {
         this.jwtTokenResolver = jwtTokenResolver;
     }
     @GetMapping
-    public void lastMonthReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException
+    public void lastMonthReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception
     {
         this.excelResponseUtil.validateResponse(httpServletResponse, "product_report");
         Long userID = this.jwtTokenResolver.getUserIDFromToken(httpServletRequest);

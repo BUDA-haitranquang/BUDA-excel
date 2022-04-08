@@ -29,7 +29,7 @@ public class OverallReportController {
         this.overallReportService = overallReportService;
     }
     @GetMapping
-    public void getOverallReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException{
+    public void getOverallReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception{
         excelResponseUtil.validateResponse(httpServletResponse, "overall_report");
         Long userID = this.jwtTokenResolver.getUserIDFromToken(httpServletRequest);
         OverallReportExporter overallReportExporter = this.overallReportService.getOverallExport(userID);

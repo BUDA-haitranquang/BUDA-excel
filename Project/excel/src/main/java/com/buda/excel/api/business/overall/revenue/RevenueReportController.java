@@ -29,7 +29,7 @@ public class RevenueReportController {
         this.excelResponseUtil = excelResponseUtil;
     }
     @GetMapping
-    public void getRevenueReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException{
+    public void getRevenueReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception{
         this.excelResponseUtil.validateResponse(httpServletResponse, "revenue_report");
         Long userID = this.jwtTokenResolver.getUserIDFromToken(httpServletRequest);
         RevenueReportExporter revenueReportExporter = this.revenueReportService.getRevenueReport(userID);

@@ -30,7 +30,7 @@ public class ExpenseReportController {
         this.excelResponseUtil = excelResponseUtil;
     }
     @GetMapping
-    public void overallExpenseReport(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+    public void overallExpenseReport(HttpServletRequest httpServletRequest, HttpServletResponse response) throws Exception {
         Long userID = this.jwtTokenResolver.getUserIDFromToken(httpServletRequest);
         this.excelResponseUtil.validateResponse(response, "expense_report");
         ExpenseReportExporter expenseReportExporter = this.expenseReportService.getExpenseReport(userID);

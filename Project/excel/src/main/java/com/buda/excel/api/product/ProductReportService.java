@@ -14,9 +14,7 @@ public class ProductReportService {
     }
 
     public ProductReportExporter getProductReport(Long userID) {
-        ProductReportExporter productReportExporter = new ProductReportExporter();
-        productReportExporter.writeDataLines(productReportExporter.getSheets().get(0),
-                this.productReportRepository.last30Days(userID));
-        return productReportExporter;
+        
+        return null;
     }
 }

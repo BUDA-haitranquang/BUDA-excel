@@ -3,17 +3,16 @@ package com.buda.excel.api.business.overall;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aspose.cells.Workbook;
+import com.aspose.cells.Worksheet;
 import com.buda.excel.general.GeneralExporter;
-
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import lombok.Getter;
 @Getter
 public class OverallReportExporter extends GeneralExporter{
-    private List<XSSFSheet> sheets;
+    private List<Worksheet> sheets;
     public OverallReportExporter() {
-        workbook = new XSSFWorkbook();
-        sheets = new ArrayList<XSSFSheet>();
+        workbook = new Workbook();
+        sheets = new ArrayList<Worksheet>();
     }
 }

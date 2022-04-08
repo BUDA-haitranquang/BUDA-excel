@@ -14,13 +14,13 @@ public class ExpenseReportService {
         this.expenseReportRepository = expenseReportRepository;
     }
 
-    public ExpenseReportExporter getExpenseReport(Long userID) {
+    public ExpenseReportExporter getExpenseReport(Long userID) throws Exception {
         ExpenseReportExporter expenseReportExporter = new ExpenseReportExporter();
-        expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(0),
+        expenseReportExporter.writeDataLines(expenseReportExporter.getWorkbook().getWorksheets().get(1),
                 this.expenseReportRepository.lastTwoMonthsReport(userID));
-        expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(1), 
+        expenseReportExporter.writeDataLines(expenseReportExporter.getWorkbook().getWorksheets().get(2), 
                 this.expenseReportRepository.recentMonthsReport(userID));
-        expenseReportExporter.writeDataLines(expenseReportExporter.getSheets().get(2), 
+        expenseReportExporter.writeDataLines(expenseReportExporter.getWorkbook().getWorksheets().get(3), 
                 this.expenseReportRepository.recentWeeksReport(userID));
         return expenseReportExporter;
     }
