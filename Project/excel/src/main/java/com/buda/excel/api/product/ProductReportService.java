@@ -13,8 +13,10 @@ public class ProductReportService {
         this.productReportRepository = productReportRepository;
     }
 
-    public ProductReportExporter getProductReport(Long userID) {
-        
-        return null;
+    public ProductReportExporter getProductReport(Long userID) throws Exception {
+        ProductReportExporter productReportExporter = new ProductReportExporter();
+        productReportExporter.writeDataLines(productReportExporter.getWorkbook().getWorksheets().get(0), 
+        this.productReportRepository.last30Days(userID));
+        return productReportExporter;
     }
 }

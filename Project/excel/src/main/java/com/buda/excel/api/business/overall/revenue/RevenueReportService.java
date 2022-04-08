@@ -14,11 +14,11 @@ public class RevenueReportService {
 
     public RevenueReportExporter getRevenueReport(Long userID) throws Exception {
         RevenueReportExporter revenueReportExporter = new RevenueReportExporter();
-        revenueReportExporter.writeDataLines(revenueReportExporter.getWorkbook().getWorksheets().get(1),
+        revenueReportExporter.writeDataLines(revenueReportExporter.getWorkbook().getWorksheets().get(0),
                 this.revenueReportRepository.lastTwoMonthsReport(userID));
-        revenueReportExporter.writeDataLines(revenueReportExporter.getWorkbook().getWorksheets().get(2),
+        revenueReportExporter.writeDataLines(revenueReportExporter.getWorkbook().getWorksheets().get(1),
                 this.revenueReportRepository.recentMonthsReport(userID));
-        revenueReportExporter.writeDataLines(revenueReportExporter.getWorkbook().getWorksheets().get(3),
+        revenueReportExporter.writeDataLines(revenueReportExporter.getWorkbook().getWorksheets().get(2),
                 this.revenueReportRepository.recentWeeksReport(userID));
         return revenueReportExporter;
     }

@@ -7,11 +7,6 @@ import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
 import com.buda.excel.general.GeneralExporter;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-
 import lombok.Getter;
 
 @Getter
@@ -20,6 +15,7 @@ public class ExpenseReportExporter extends GeneralExporter {
 
     public ExpenseReportExporter() {
         workbook = new Workbook();
+        workbook.getWorksheets().clear();
         sheets = new ArrayList<Worksheet>();
         writeHeaderLine();
     }

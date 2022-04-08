@@ -13,6 +13,7 @@ public class OverallReportExporter extends GeneralExporter{
     private List<Worksheet> sheets;
     public OverallReportExporter() {
         workbook = new Workbook();
+        workbook.getWorksheets().clear();
         sheets = new ArrayList<Worksheet>();
     }
 }
