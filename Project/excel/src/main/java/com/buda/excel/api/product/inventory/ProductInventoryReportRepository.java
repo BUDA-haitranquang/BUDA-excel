@@ -26,6 +26,7 @@ public class ProductInventoryReportRepository {
         for (Map<String, Object> row : rows) {
             ProductInventoryReportDTO productInventoryReportDTO = new ProductInventoryReportDTO();
             productInventoryReportDTO.setProductID((Long) row.get("product_id"));
+            productInventoryReportDTO.setProductSKU((String) row.get("product_sku"));
             productInventoryReportDTO.setAmountChange((BigDecimal) row.get("amount_change"));
             productInventoryReportDTO.setName((String) row.get("name"));
             productInventoryReportDTO.setAmountLeft((Integer) row.get("amount_left"));
@@ -40,7 +41,7 @@ public class ProductInventoryReportRepository {
         params.put("X", X);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
         return genericConverter(jdbcTemplate
-                .queryForList("select p.product_id as product_id, p.name as name, p.amount_left as amount_left "
+                .queryForList("select p.product_id as product_id, p.product_sku as product_sku, p.name as name, p.amount_left as amount_left "
                         + ", sum(pll.amount_left_change) as amount_change from product p, product_left_log as pll"
                         + " where p.product_id = pll.product_id and pll.creation_time > ((now() - INTERVAL :X day))"
                         + " and p.user_id = :userID group by p.product_id;", sqlParameterSource));

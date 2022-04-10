@@ -16,4 +16,5 @@ public class ProductInventoryReportDTO {
     private String name;
     private Integer amountLeft;
     private BigDecimal amountChange;
+    private String productSKU;
 }

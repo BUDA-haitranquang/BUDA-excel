@@ -13,14 +13,18 @@ public class CustomerReportExporter extends GeneralExporter{
         workbook = new Workbook();
         workbook.getWorksheets().clear();
         sheets = new ArrayList<Worksheet>();
+        writeHeaderLines();
     }
     public void writeHeaderLines() {
-        sheets.add(workbook.getWorksheets().add("Customer Report - Last two months"));
-        sheets.add(workbook.getWorksheets().add("Customer Report - All time"));
-        sheets.add(workbook.getWorksheets().add("Customer Report - By Age Group"));
-        sheets.add(workbook.getWorksheets().add("Customer Report - By Gender"));
+        sheets.add(workbook.getWorksheets().add("Customer - Last two months"));
+        sheets.add(workbook.getWorksheets().add("Customer - All time"));
+        sheets.add(workbook.getWorksheets().add("Customer - By Age Group"));
+        sheets.add(workbook.getWorksheets().add("Customer - By Gender"));
     }
     public void writeDataLines(Worksheet worksheet, List<CustomerReportDTO> customerReportDTOs) throws Exception {
+        worksheet.getCells().importCustomObjects(customerReportDTOs, new String[] { "Name", "Address", "PhoneNumber", "AgeGroup", "Gender", "TotalSpendPeriod" }, true, 0, 0,
+                customerReportDTOs.size(), true, "dd/mm/yyyy",
+                false);
         worksheet.autoFitColumns();
     }
 }

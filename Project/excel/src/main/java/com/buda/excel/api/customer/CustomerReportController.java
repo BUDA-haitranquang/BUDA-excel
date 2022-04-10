@@ -9,7 +9,7 @@ import com.buda.excel.util.ExcelResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +30,10 @@ public class CustomerReportController {
         this.excelResponseUtil = excelResponseUtil;
     }
 
-    @GetMapping
+    @PostMapping
     public void getCustomerReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
     @RequestBody LoginDTO loginDTO) throws Exception {
-        excelResponseUtil.validateResponse(httpServletResponse, "cool");
+        excelResponseUtil.validateResponse(httpServletResponse, "customer_report");
         Long userID = this.loginService.getUserID(loginDTO);
         CustomerReportExporter customerReportExporter = customerReportService.getCustomerReport(userID);
         customerReportExporter.export(httpServletResponse);

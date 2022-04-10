@@ -21,7 +21,7 @@ public class ProductInventoryReportExporter extends GeneralExporter {
     public void writeDataLines(Worksheet sheet, List<ProductInventoryReportDTO> productInventoryReportDTOs)
             throws Exception {
         sheet.getCells().importCustomObjects(productInventoryReportDTOs,
-        new String[] { "ProductID", "Name", "AmountLeft", "AmountChange" }, true, 0, 0,
+        new String[] { "ProductSKU", "Name", "AmountLeft", "AmountChange" }, true, 0, 0,
         productInventoryReportDTOs.size(), true, "dd/mm/yyyy",
         false);
         sheet.autoFitColumns();
