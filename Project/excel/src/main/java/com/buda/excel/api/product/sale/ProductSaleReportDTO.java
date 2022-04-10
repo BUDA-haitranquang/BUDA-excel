@@ -1,4 +1,4 @@
-package com.buda.excel.api.product;
+package com.buda.excel.api.product.sale;
 
 import java.math.BigDecimal;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductReportDTO {
+public class ProductSaleReportDTO {
     private String name;
     private Double revenue;
     private Double profit;

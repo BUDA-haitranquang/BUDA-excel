@@ -17,8 +17,10 @@ public class CustomerReportExporter extends GeneralExporter{
     public void writeHeaderLines() {
         sheets.add(workbook.getWorksheets().add("Customer Report - Last two months"));
         sheets.add(workbook.getWorksheets().add("Customer Report - All time"));
+        sheets.add(workbook.getWorksheets().add("Customer Report - By Age Group"));
+        sheets.add(workbook.getWorksheets().add("Customer Report - By Gender"));
     }
     public void writeDataLines(Worksheet worksheet, List<CustomerReportDTO> customerReportDTOs) throws Exception {
-
+        worksheet.autoFitColumns();
     }
 }

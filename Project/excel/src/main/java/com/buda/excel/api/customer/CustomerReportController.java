@@ -3,7 +3,6 @@ package com.buda.excel.api.customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.buda.excel.security.JwtTokenResolver;
 import com.buda.excel.service.login.LoginDTO;
 import com.buda.excel.service.login.LoginService;
 import com.buda.excel.util.ExcelResponseUtil;

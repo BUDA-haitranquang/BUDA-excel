@@ -1,4 +1,4 @@
-package com.buda.excel.api.business.overall.expense;
+package com.buda.excel.api.product.inventory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,28 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("api/product/inventory")
 @RestController
-@RequestMapping("api/business/overall/expense")
 @CrossOrigin("*")
-public class ExpenseReportController {
-    private final ExpenseReportService expenseReportService;
+public class ProductInventoryReportController {
+    private final ProductInventoryReportService productInventoryReportService;
     private final ExcelResponseUtil excelResponseUtil;
     private final LoginService loginService;
 
     @Autowired
-    public ExpenseReportController(ExpenseReportService expenseReportService, ExcelResponseUtil excelResponseUtil,
-            LoginService loginService) {
+    public ProductInventoryReportController(ProductInventoryReportService productInventoryReportService,
+            ExcelResponseUtil excelResponseUtil, LoginService loginService) {
+        this.productInventoryReportService = productInventoryReportService;
         this.loginService = loginService;
-        this.expenseReportService = expenseReportService;
         this.excelResponseUtil = excelResponseUtil;
     }
 
     @PostMapping
-    public void overallExpenseReport(HttpServletRequest httpServletRequest, HttpServletResponse response,
+    public void getInventoryReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
             @RequestBody LoginDTO loginDTO) throws Exception {
+        this.excelResponseUtil.validateResponse(httpServletResponse, "product_inventory");
         Long userID = this.loginService.getUserID(loginDTO);
-        this.excelResponseUtil.validateResponse(response, "expense_report");
-        ExpenseReportExporter expenseReportExporter = this.expenseReportService.getExpenseReport(userID);
-        expenseReportExporter.export(response);
+        ProductInventoryReportExporter productInventoryReportExporter = this.productInventoryReportService
+                .getOverallInventoryChange(userID);
+        productInventoryReportExporter.export(httpServletResponse);
     }
 }

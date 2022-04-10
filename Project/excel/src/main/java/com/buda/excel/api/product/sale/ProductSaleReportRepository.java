@@ -1,4 +1,4 @@
-package com.buda.excel.api.product;
+package com.buda.excel.api.product.sale;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,16 +12,16 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProductReportRepository {
+public class ProductSaleReportRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     @Autowired
-    public ProductReportRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+    public ProductSaleReportRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public List<ProductReportDTO> genericConverter(List<Map<String, Object>> rows) {
-        List<ProductReportDTO> productReportDTOs = new ArrayList<ProductReportDTO>();
+    public List<ProductSaleReportDTO> genericConverter(List<Map<String, Object>> rows) {
+        List<ProductSaleReportDTO> productReportDTOs = new ArrayList<ProductSaleReportDTO>();
         for (Map<String, Object> row: rows) {
-            ProductReportDTO productReportDTO = new ProductReportDTO();
+            ProductSaleReportDTO productReportDTO = new ProductSaleReportDTO();
             productReportDTO.setName((String) row.get("name"));
             productReportDTO.setRevenue((Double) row.get("revenue"));
             productReportDTO.setProfit((Double) row.get("profit"));
@@ -31,7 +31,7 @@ public class ProductReportRepository {
         }
         return productReportDTOs;
     }
-    public List<ProductReportDTO> last30Days(Long userID) {
+    public List<ProductSaleReportDTO> last30Days(Long userID) {
         SqlParameterSource source = new MapSqlParameterSource("userID", userID);
         return genericConverter(jdbcTemplate.queryForList("select i.product_id as productID, p.name as name, "
         + "sum(if(s.status = 'FINISHED', i.price_per_unit * i.quantity, 0)) as revenue, "
