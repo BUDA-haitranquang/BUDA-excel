@@ -3,14 +3,12 @@ package com.buda.excel.api.business.overall.revenue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.buda.excel.service.login.LoginDTO;
-import com.buda.excel.service.login.LoginService;
+import com.buda.excel.security.RequestResolver;
 import com.buda.excel.util.ExcelResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,19 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class RevenueReportController {
     private final RevenueReportService revenueReportService;
     private final ExcelResponseUtil excelResponseUtil;
-    private final LoginService loginService;
+    private final RequestResolver requestResolver;
     @Autowired
     public RevenueReportController(RevenueReportService revenueReportService, ExcelResponseUtil excelResponseUtil,
-    LoginService loginService) {
-        this.loginService = loginService;
+    RequestResolver requestResolver) {
+        this.requestResolver = requestResolver;
         this.revenueReportService = revenueReportService;
         this.excelResponseUtil = excelResponseUtil;
     }
-    @PostMapping
-    public void getRevenueReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-    @RequestBody LoginDTO loginDTO) throws Exception{
+    @GetMapping
+    public void getRevenueReport(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception{
         this.excelResponseUtil.validateResponse(httpServletResponse, "revenue_report");
-        Long userID = this.loginService.getUserID(loginDTO);
+        Long userID = this.requestResolver.getProUserIDFromUserToken(httpServletRequest);
         RevenueReportExporter revenueReportExporter = this.revenueReportService.getRevenueReport(userID);
         revenueReportExporter.export(httpServletResponse);
     }
