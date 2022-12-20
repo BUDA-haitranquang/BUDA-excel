@@ -19,7 +19,7 @@ public class ImportNewProductRepository {
     } 
 
     public void saveNewProducts(List<NewProductDTO> newProducts, Long userID) {
-        this.jdbcTemplate.batchUpdate("insert into product (name, description, amount_left, alert_amount, cost_per_unit, selling_price) values(?,?,?,?,?,?)", new BatchPreparedStatementSetter() {
+        this.jdbcTemplate.batchUpdate("insert into product (name, description, amount_left, alert_amount, cost_per_unit, selling_price, user_id) values(?,?,?,?,?,?,?)", new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, newProducts.get(i).getName());
                 ps.setString(2, newProducts.get(i).getDescription());

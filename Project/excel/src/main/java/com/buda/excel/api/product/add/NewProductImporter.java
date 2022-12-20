@@ -46,7 +46,14 @@ public class NewProductImporter {
                     
                     case 1: // product sku 
                         if (currentCell != null && currentCell.getCellType() != CellType.BLANK) {
-                            newProductDTO.setProductSKU(currentCell.getStringCellValue());
+                            String productSKU = "";
+                            if (currentCell.getCellType().equals(CellType.NUMERIC)) {
+                                productSKU = String.valueOf(currentCell.getNumericCellValue());
+                            }
+                            else {
+                                productSKU = currentCell.getStringCellValue();
+                            }
+                            newProductDTO.setProductSKU(productSKU);
                         }
                         break;
 
@@ -59,7 +66,7 @@ public class NewProductImporter {
                             newProductDTO.setAlertAmount(0);
                         }
                         else {
-                            newProductDTO.setAlertAmount(Integer.valueOf(currentCell.getStringCellValue()));
+                            newProductDTO.setAlertAmount(Integer.valueOf((int) currentCell.getNumericCellValue()));
                         }
                         break;
 
